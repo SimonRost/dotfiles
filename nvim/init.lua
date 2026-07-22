@@ -76,3 +76,5 @@ end, { desc = "Open Oil in a vertical split" })
 vim.keymap.set("n", "<leader>oo", function()
   vim.cmd.Oil()
 end, { desc = "Open Oil" })
+
+
