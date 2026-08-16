@@ -1,4 +1,13 @@
--- ~/.config/nvim/init.lua
+vim.opt.winhighlight = "Normal:Normal,NormalNC:Normal,FloatBorder:FloatBorder"
+vim.cmd([[
+  highlight FloatBorder guibg=None guifg=#888888
+]])vim.opt.winhighlight = "Normal:MyNormal,FloatBorder:MyBorder"
+vim.cmd([[
+  highlight MyBorder guifg=#504945 gui=bold
+]])vim.opt.winhighlight = "Normal:MyNormal,FloatBorder:MyBorder"
+vim.cmd([[
+  highlight MyBorder guifg=#504945 gui=bold
+]])-- ~/.config/nvim/init.lua
 
 -- Environment: Python venv first, then Homebrew
 do
@@ -11,7 +20,7 @@ end
 vim.env.PATH = "/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/sbin:" .. (vim.env.PATH or "")
 vim.env.TS_INSTALL_BIN = "/opt/homebrew/bin/tree-sitter"
 
--- Leaders and basic options
+-- Leaders, basic options and basic keymaps
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.number = true
@@ -26,18 +35,9 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.wrap = true
 vim.opt.linebreak = true
+vim.keymap.set('i', 'jk', '<Esc>', { desc = 'Exit insert mode' })
+vim.keymap.set('v', 'jk', '<Esc>', { desc = 'Exit visual mode' })
 
--- Keymaps: Vault navigation + Telescope
-vim.keymap.set("n", "<leader>vv", function()
-  vim.cmd("cd ~/Documents/obsidian-vault")
-  require("telescope.builtin").find_files()
-end, { desc = "cd to vault and open Telescope" })
-vim.keymap.set("n", "<leader>vf", function()
-  require("telescope.builtin").find_files({ cwd = "~/Documents/obsidian-vault", hidden = true })
-end, { desc = "Vault files" })
-vim.keymap.set("n", "<leader>vg", function()
-  require("telescope.builtin").live_grep({ cwd = "~/Documents/obsidian-vault", additional_args = { "--hidden" } })
-end, { desc = "Vault grep" })
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -68,6 +68,19 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Keymaps: Telescope
+vim.keymap.set("n", "<leader>vv", function()
+  vim.cmd("cd ~/Documents/vault")
+  require("telescope.builtin").find_files()
+end, { desc = "cd to vault and open Telescope" })
+vim.keymap.set("n", "<leader>vf", function()
+  require("telescope.builtin").find_files({ cwd = "~/Documents/vault", hidden = true })
+end, { desc = "Vault files" })
+vim.keymap.set("n", "<leader>vg", function()
+  require("telescope.builtin").live_grep({ cwd = "~/Documents/vault", additional_args = { "--hidden" } })
+end, { desc = "Vault grep" })
+
+-- Oil
 vim.keymap.set("n", "<leader>ov", function()
   vim.cmd.vsplit()
   vim.cmd.Oil()
@@ -78,3 +91,20 @@ vim.keymap.set("n", "<leader>oo", function()
 end, { desc = "Open Oil" })
 
 
+-- Better Visuals for Separators
+ vim.opt.fillchars:append({
+  vert = "│",
+  horiz = "x",
+  verthoriz = "┼",
+  vertleft = "┤",
+  vertright = "├",
+  horizup = "┴",
+  horizdown = "┬",
+ })
+
+-- Make separators stand out
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#F2F2F2", bold = true })
+vim.opt.laststatus = 2  -- Always show statusline
+vim.opt.cmdheight = 1    -- Ensure cmdline is visible
+vim.api.nvim_set_hl(0, "StatusLine", { bg = "#6E738D", fg = "#F2F2F2" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#6E738D", fg = "#6e738d" })

@@ -109,13 +109,12 @@ local img_clip = {
   "HakonHarnes/img-clip.nvim",
   opts = {
     default = {
-      dir_path = vim.fn.expand("~/Documents/obsidian-vault/30_resources/resources"),
+      dir_path = vim.g.img_clip_dir_path or "assets", -- project-local overwrite for a project-specific asset-folder with a .nvim.lua in project root: vim.g.img_clip_dir_path = "docs/assets"
       relative_to_current_file = true,
       use_absolute_path = false,
       file_name = "%Y-%m-%d-%H%M%S",
-      template = "![](${rel_img_path})",
+      template = "![](<${img_rel_path}>)",
       url_encode_path = true,
-      relative_to = vim.fn.expand("~/Documents/obsidian-vault"),
       prompt_for_file_name = false,
       confirm_path = false,
     },
@@ -137,7 +136,7 @@ local md_preview = {
     vim.g.mkdp_auto_close = 0
     vim.g.mkdp_theme = "dark"
     vim.g.mkdp_browser = "Vivaldi"
-    vim.g.mkdp_filteypes = { "markdown" }
+    vim.g.mkdp_filetypes = { "markdown" }
     vim.g.mkdp_preview_options = {
       disable_sync_scroll = 0,
       sync_scroll_type = "middle",

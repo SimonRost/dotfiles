@@ -1,0 +1,24 @@
+# Private machine-specific shell configuration.
+.zprofile.local
+.zshrc.local
+.bashrc.local
+
+# Neovim runtime data
+nvim/.local/
+nvim/.cache/
+nvim/.undo/
+nvim/.backup/
+nvim/.swap/
+
+# Lazy, Mason, etc. if mirrored inside repo
+nvim/lazy/
+nvim/mason/
+
+# Shell history and temporary files
+.zsh_history
+.bash_history
+*.swp
+*.tmp
+
+# MacOS specific
+.DS_Store
