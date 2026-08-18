@@ -19,6 +19,7 @@ brew "neovim"
 brew "eza"
 brew "fzf"
 brew "zoxide"
+brew "tmux"
 
 # Terminal emulator.
 cask "kitty"
