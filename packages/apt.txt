@@ -18,5 +18,3 @@ fzf
 zoxide
 eza
 
-# Terminal emulator
-wezterm
