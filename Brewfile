@@ -23,3 +23,4 @@ brew "tmux"
 
 # Terminal emulator.
 cask "wezterm"
+cask "font-jetbrains-mono-nerd-font"

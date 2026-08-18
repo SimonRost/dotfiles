@@ -1,0 +1,22 @@
+# Portable terminal baseline for Debian-derived Linux systems.
+#
+# Supported targets:
+# - Ubuntu
+# - Kali Linux
+# - Linux Mint
+#
+# The setup script will use APT to install available packages.
+# Do not put secrets or machine-specific software in this file.
+
+# Core development tools.
+git
+neovim
+
+# Terminal environment.
+tmux
+fzf
+zoxide
+eza
+
+# Terminal emulator
+wezterm
