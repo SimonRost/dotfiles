@@ -60,13 +60,13 @@ local image_nvim = {
   priority = 900,
   config = function()
     require("image").setup({
-      backend = "kitty",
+      backend = "kitty", -- Kitty graphics protocol, used by Kitty and WezTerm.
       processor = "magick_cli",
       integrations = {
         markdown = {
           enabled = true,
           clear_in_insert_mode = false,
-          download_remote_images = true,
+          download_remote_images = false,
           only_render_image_at_cursor = true,
           only_render_image_at_cursor_mode = "popup",
           resolve_image_size = true,
@@ -97,8 +97,7 @@ local image_nvim = {
       window_overlap_clear_enabled = false,
       editor_only_render_when_focused = false,
       window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "snacks_notif", "scrollview", "scrollview_sign" },
-      editor_only_render_when_focused = false,
-      tmux_show_only_in_active_window = false,
+      tmux_show_only_in_active_window = true,
       hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
     })
   end,

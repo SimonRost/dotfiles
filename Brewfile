@@ -22,4 +22,4 @@ brew "zoxide"
 brew "tmux"
 
 # Terminal emulator.
-cask "kitty"
+cask "wezterm"
