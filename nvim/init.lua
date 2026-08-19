@@ -36,7 +36,6 @@ vim.opt.splitbelow = true
 vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.keymap.set('i', 'jk', '<Esc>', { desc = 'Exit insert mode' })
-vim.keymap.set('v', 'jk', '<Esc>', { desc = 'Exit visual mode' })
 
 
 -- Bootstrap lazy.nvim

@@ -3,7 +3,7 @@ local config = wezterm.config_builder()
 
 -- Font and text rendering.
 config.font = wezterm.font('JetBrainsMono Nerd Font')
-config.font_size = 12.0
+config.font_size = 14.0
 config.harfbuzz_features = {
   'calt=1',
   'clig=1',
