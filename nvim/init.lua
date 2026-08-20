@@ -1,22 +1,15 @@
-vim.opt.winhighlight = "Normal:Normal,NormalNC:Normal,FloatBorder:FloatBorder"
-vim.cmd([[
-  highlight FloatBorder guibg=None guifg=#888888
-]])vim.opt.winhighlight = "Normal:MyNormal,FloatBorder:MyBorder"
-vim.cmd([[
-  highlight MyBorder guifg=#504945 gui=bold
-]])vim.opt.winhighlight = "Normal:MyNormal,FloatBorder:MyBorder"
-vim.cmd([[
-  highlight MyBorder guifg=#504945 gui=bold
-]])-- ~/.config/nvim/init.lua
 
--- Environment: Python venv first, then Homebrew
+-- ~/.config/nvim/init.lua
+
+-- Dedicated environment for Neovim's optional Python provider.
 do
-  local venv_bin = vim.fn.expand("~/.venvs/nvim-md/bin")
-  if vim.fn.isdirectory(venv_bin) == 1 then
-    vim.env.PATH = venv_bin .. ":" .. (vim.env.PATH or "")
-    vim.g.python3_host_prog = venv_bin .. "/python3"
+  local provider_python = vim.fn.expand("~/.venvs/nvim/bin/python3")
+
+  if vim.fn.executable(provider_python) == 1 then
+    vim.g.python3_host_prog = provider_python
   end
 end
+
 vim.env.PATH = "/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/sbin:" .. (vim.env.PATH or "")
 vim.env.TS_INSTALL_BIN = "/opt/homebrew/bin/tree-sitter"
 
@@ -35,6 +28,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.wrap = true
 vim.opt.linebreak = true
+vim.opt.autoindent = true
 vim.keymap.set('i', 'jk', '<Esc>', { desc = 'Exit insert mode' })
 
 
@@ -65,6 +59,49 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spelllang = "de_ch,en"
     vim.opt_local.conceallevel = 2
     vim.opt_local.colorcolumn = ""
+  end,
+})
+
+-- Language-specific indentation.
+-- Tabs insert spaces. The number of spaces follows common language conventions.
+local indentation_group = vim.api.nvim_create_augroup("LanguageIndentation", {
+  clear = true,
+})
+
+local function set_indent(width)
+  vim.opt_local.expandtab = true
+  vim.opt_local.tabstop = width
+  vim.opt_local.shiftwidth = width
+  vim.opt_local.softtabstop = width
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = indentation_group,
+  pattern = {
+    "lua",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "css",
+    "json",
+    "yaml",
+    "typst",
+  },
+  callback = function()
+    set_indent(2)
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = indentation_group,
+  pattern = {
+    "python",
+    "java",
+  },
+  callback = function()
+    set_indent(4)
   end,
 })
 
@@ -108,3 +145,17 @@ vim.opt.laststatus = 2  -- Always show statusline
 vim.opt.cmdheight = 1    -- Ensure cmdline is visible
 vim.api.nvim_set_hl(0, "StatusLine", { bg = "#6E738D", fg = "#F2F2F2" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#6E738D", fg = "#6e738d" })
+
+vim.opt.winhighlight = "Normal:Normal,NormalNC:Normal,FloatBorder:FloatBorder"
+vim.cmd([[
+  highlight FloatBorder guibg=None guifg=#888888
+]])
+vim.opt.winhighlight = "Normal:MyNormal,FloatBorder:MyBorder"
+vim.cmd([[
+  highlight MyBorder guifg=#504945 gui=bold
+]])
+vim.opt.winhighlight = "Normal:MyNormal,FloatBorder:MyBorder"
+vim.cmd([[
+  highlight MyBorder guifg=#504945 gui=bold
+]])
+
