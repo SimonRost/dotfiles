@@ -51,6 +51,13 @@ return {
 
       vim.lsp.enable("basedpyright")
 
+      vim.lsp.config("ruff", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable("ruff")
+
+
       local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", {
         clear = true,
       })
@@ -65,24 +72,31 @@ return {
             })
           end
 
+          local function jump_to_diagnostic(count)
+            vim.diagnostic.jump({
+            count = count,
+            })
+            end
+
           map("gd", vim.lsp.buf.definition, "Go to definition")
           map("gr", vim.lsp.buf.references, "Find references")
           map("K", vim.lsp.buf.hover, "Hover documentation")
           map("<leader>rn", vim.lsp.buf.rename, "Rename symbol")
           map("<leader>ca", vim.lsp.buf.code_action, "Code actions")
-	  local function jump_to_diagnostic(count)
-	    vim.diagnostic.jump({
-	    count = count,
-	    })
-	    end
 
-	    map("[d", function()
-	    jump_to_diagnostic(-1)
-    	    end, "Previous diagnostic")
+          map("<leader>lf", function()
+            vim.lsp.buf.format({
+              async = true,
+            })
+          end, "Format buffer")
 
-	    map("]d", function()
-	    jump_to_diagnostic(1)
-	    end, "Next diagnostic")
+          map("[d", function()
+            jump_to_diagnostic(-1)
+          end, "Previous diagnostic")
+
+          map("]d", function()
+            jump_to_diagnostic(1)
+          end, "Next diagnostic")
           map("<leader>ld", vim.diagnostic.open_float, "Line diagnostics")
         end,
       })
@@ -98,7 +112,8 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
-	"basedpyright",
+        "basedpyright",
+        "ruff",
       },
       automatic_enable = false,
     },
