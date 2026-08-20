@@ -20,7 +20,7 @@ return {
         },
 
         mapping = cmp.mapping.preset.insert({
-          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<M-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-p>"] = cmp.mapping.select_prev_item(),

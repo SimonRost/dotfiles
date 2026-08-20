@@ -34,6 +34,23 @@ return {
 
       vim.lsp.enable("lua_ls")
 
+      vim.lsp.config("basedpyright", {
+        capabilities = capabilities,
+        settings = {
+          basedpyright = {
+            analysis = {
+              autoImportCompletions = true,
+              autoSearchPaths = true,
+              diagnosticMode = "openFilesOnly",
+              typeCheckingMode = "standard",
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+      })
+
+      vim.lsp.enable("basedpyright")
+
       local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", {
         clear = true,
       })
@@ -81,6 +98,7 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
+	"basedpyright",
       },
       automatic_enable = false,
     },
