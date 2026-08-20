@@ -57,6 +57,11 @@ return {
 
       vim.lsp.enable("ruff")
 
+      vim.lsp.config("ts_ls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable("ts_ls")
 
       local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", {
         clear = true,
@@ -114,6 +119,7 @@ return {
         "lua_ls",
         "basedpyright",
         "ruff",
+        "ts_ls",
       },
       automatic_enable = false,
     },

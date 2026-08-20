@@ -10,9 +10,9 @@ return {
 
       cmp.setup({
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone,noinsert,noselect",
         },
-
+        preselect = cmp.PreselectMode.None,
         snippet = {
           expand = function(args)
             vim.snippet.expand(args.body)
@@ -20,7 +20,7 @@ return {
         },
 
         mapping = cmp.mapping.preset.insert({
-          ["<M-Space>"] = cmp.mapping.complete(),
+          ["<C-x><C-o>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-p>"] = cmp.mapping.select_prev_item(),

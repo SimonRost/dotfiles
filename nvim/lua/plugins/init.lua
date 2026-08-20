@@ -25,7 +25,22 @@ local treesitter = {
   opts = {
     highlight = { enable = true },
     indent = { enable = true },
-    ensure_installed = { "lua","vim","vimdoc","markdown","markdown_inline","python","java","json","bash","yaml","javascript","latex" },
+    ensure_installed = {
+      "lua",
+      "vim",
+      "vimdoc",
+      "markdown",
+      "markdown_inline",
+      "python",
+      "java",
+      "json",
+      "bash",
+      "yaml",
+      "javascript",
+      "typescript",
+      "tsx",
+      "latex",
+    },
   },
 }
 
