@@ -75,6 +75,18 @@ return {
 
       vim.lsp.enable("cssls")
 
+      vim.lsp.config("jsonls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable("jsonls")
+
+      vim.lsp.config("yamlls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable("yamlls")
+
       local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", {
         clear = true,
       })
@@ -134,6 +146,8 @@ return {
         "ts_ls",
         "html",
         "cssls",
+        "jsonls",
+        "yamlls",
       },
       automatic_enable = false,
     },
