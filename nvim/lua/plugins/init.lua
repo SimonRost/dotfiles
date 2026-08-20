@@ -39,6 +39,8 @@ local treesitter = {
       "javascript",
       "typescript",
       "tsx",
+      "html",
+      "css",
       "latex",
     },
   },

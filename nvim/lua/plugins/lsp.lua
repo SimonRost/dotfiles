@@ -63,6 +63,18 @@ return {
 
       vim.lsp.enable("ts_ls")
 
+      vim.lsp.config("html", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable("html")
+
+      vim.lsp.config("cssls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable("cssls")
+
       local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", {
         clear = true,
       })
@@ -120,6 +132,8 @@ return {
         "basedpyright",
         "ruff",
         "ts_ls",
+        "html",
+        "cssls",
       },
       automatic_enable = false,
     },
