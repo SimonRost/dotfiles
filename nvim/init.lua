@@ -159,3 +159,18 @@ vim.cmd([[
   highlight MyBorder guifg=#504945 gui=bold
 ]])
 
+-- Make floating windows distinct from the editor background.
+vim.api.nvim_set_hl(0, "NormalFloat", {
+  bg = "#363a4f",
+  fg = "#cad3f5",
+})
+
+vim.api.nvim_set_hl(0, "FloatBorder", {
+  bg = "#363a4f",
+  fg = "#8aadf4",
+})
+
+vim.api.nvim_set_hl(0, "DiagnosticFloatingError", {
+  bg = "#363a4f",
+  fg = "#ed8796",
+})
