@@ -87,6 +87,12 @@ return {
 
       vim.lsp.enable("yamlls")
 
+      vim.lsp.config("jdtls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable("jdtls")
+
       local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", {
         clear = true,
       })
@@ -148,6 +154,7 @@ return {
         "cssls",
         "jsonls",
         "yamlls",
+        "jdtls",
       },
       automatic_enable = false,
     },

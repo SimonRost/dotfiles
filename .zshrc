@@ -35,3 +35,7 @@ fi
 
 # Private, machine-specific interactive configuration.
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+
+# Java: use JDK 21 LTS as the default development toolchain.
+export JAVA_HOME="$("/usr/libexec/java_home" -v 21)"
+export PATH="$JAVA_HOME/bin:$PATH"
