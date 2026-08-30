@@ -20,3 +20,6 @@ if command -v eza >/dev/null 2>&1; then
   alias ela='eza -lah --git'
   alias et='eza --tree'
 fi
+
+# LLM (simonw)
+alias cmd='llm -m mistral-small -t command'

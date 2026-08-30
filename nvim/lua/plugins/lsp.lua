@@ -34,6 +34,16 @@ return {
 
       vim.lsp.enable("lua_ls")
 
+      vim.lsp.config("tinymist", {
+        capabilities = capabilities,
+        settings = {
+          exportPdf = "onSave",
+          formatterMode = "typstyle",
+        },
+      })
+
+      vim.lsp.enable("tinymist")
+
       vim.lsp.config("basedpyright", {
         capabilities = capabilities,
         settings = {
@@ -155,6 +165,7 @@ return {
         "jsonls",
         "yamlls",
         "jdtls",
+        "tinymist",
       },
       automatic_enable = false,
     },

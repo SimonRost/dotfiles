@@ -1,14 +1,4 @@
-
 -- ~/.config/nvim/init.lua
-
--- Dedicated environment for Neovim's optional Python provider.
-do
-  local provider_python = vim.fn.expand("~/.venvs/nvim/bin/python3")
-
-  if vim.fn.executable(provider_python) == 1 then
-    vim.g.python3_host_prog = provider_python
-  end
-end
 
 vim.env.PATH = "/opt/homebrew/bin:/usr/local/bin:/opt/homebrew/sbin:" .. (vim.env.PATH or "")
 vim.env.TS_INSTALL_BIN = "/opt/homebrew/bin/tree-sitter"
@@ -46,8 +36,10 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
+
 -- Colorscheme
 vim.cmd.colorscheme("catppuccin-macchiato")
+
 
 -- Markdown-friendly buffer-local defaults
 vim.api.nvim_create_autocmd("FileType", {
@@ -61,6 +53,16 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.colorcolumn = ""
   end,
 })
+
+
+-- Typst
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "typst",
+  callback = function()
+    vim.opt_local.spell = true
+  end,
+})
+
 
 -- Language-specific indentation.
 -- Tabs insert spaces. The number of spaces follows common language conventions.
@@ -105,72 +107,35 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Keymaps: Telescope
-vim.keymap.set("n", "<leader>vv", function()
-  vim.cmd("cd ~/Documents/vault")
-  require("telescope.builtin").find_files()
-end, { desc = "cd to vault and open Telescope" })
-vim.keymap.set("n", "<leader>vf", function()
-  require("telescope.builtin").find_files({ cwd = "~/Documents/vault", hidden = true })
-end, { desc = "Vault files" })
-vim.keymap.set("n", "<leader>vg", function()
-  require("telescope.builtin").live_grep({ cwd = "~/Documents/vault", additional_args = { "--hidden" } })
-end, { desc = "Vault grep" })
-
--- Oil
-vim.keymap.set("n", "<leader>ov", function()
-  vim.cmd.vsplit()
-  vim.cmd.Oil()
-end, { desc = "Open Oil in a vertical split" })
 
 vim.keymap.set("n", "<leader>oo", function()
   vim.cmd.Oil()
 end, { desc = "Open Oil" })
 
 
--- Better Visuals for Separators
- vim.opt.fillchars:append({
-  vert = "│",
-  horiz = "x",
-  verthoriz = "┼",
-  vertleft = "┤",
-  vertright = "├",
-  horizup = "┴",
-  horizdown = "┬",
- })
+-- Dedicated environment for Neovim's optional Python provider.
+do
+  local provider_python = vim.fn.expand("~/.venvs/nvim/bin/python3")
 
--- Make separators stand out
-vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#F2F2F2", bold = true })
-vim.opt.laststatus = 2  -- Always show statusline
-vim.opt.cmdheight = 1    -- Ensure cmdline is visible
-vim.api.nvim_set_hl(0, "StatusLine", { bg = "#6E738D", fg = "#F2F2F2" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#6E738D", fg = "#6e738d" })
+  if vim.fn.executable(provider_python) == 1 then
+    vim.g.python3_host_prog = provider_python
+  end
+end
 
-vim.opt.winhighlight = "Normal:Normal,NormalNC:Normal,FloatBorder:FloatBorder"
-vim.cmd([[
-  highlight FloatBorder guibg=None guifg=#888888
-]])
-vim.opt.winhighlight = "Normal:MyNormal,FloatBorder:MyBorder"
-vim.cmd([[
-  highlight MyBorder guifg=#504945 gui=bold
-]])
-vim.opt.winhighlight = "Normal:MyNormal,FloatBorder:MyBorder"
-vim.cmd([[
-  highlight MyBorder guifg=#504945 gui=bold
-]])
+-- Cut selected text and paste it into a new file
+local function cut_to_new_file()
+  -- Cut the selected text into register 'a'
+  vim.cmd('normal! "ad')
+  -- Create a new buffer
+  vim.cmd('enew')
+  -- Paste from register 'a'
+  vim.cmd('normal! "ap')
+  -- Prompt for filename
+  vim.ui.input({ prompt = "Save as: " }, function(filename)
+    if filename then
+      vim.cmd('write ' .. filename)
+    end
+  end)
+end
 
--- Make floating windows distinct from the editor background.
-vim.api.nvim_set_hl(0, "NormalFloat", {
-  bg = "#363a4f",
-  fg = "#cad3f5",
-})
-
-vim.api.nvim_set_hl(0, "FloatBorder", {
-  bg = "#363a4f",
-  fg = "#8aadf4",
-})
-
-vim.api.nvim_set_hl(0, "DiagnosticFloatingError", {
-  bg = "#363a4f",
-  fg = "#ed8796",
-})
+vim.keymap.set("v", "<Leader>n", cut_to_new_file, { desc = "Cut selection to new file" })
