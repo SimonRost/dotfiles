@@ -96,6 +96,7 @@ return {
   -- markdown-preview
   {
     "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
     keys = {
@@ -104,6 +105,7 @@ return {
     init = function()
       vim.g.mkdp_auto_close = 0
       vim.g.mkdp_theme = "dark"
+      vim.g.mkdp_port = "8081"
       vim.g.mkdp_browser = "Vivaldi"
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_preview_options = {
