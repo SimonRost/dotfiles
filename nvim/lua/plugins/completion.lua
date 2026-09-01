@@ -10,9 +10,9 @@ return {
 
       cmp.setup({
         completion = {
-          completeopt = "menu,menuone,noinsert,noselect",
+          completeopt = "menu,menuone,noinsert",
         },
-        preselect = cmp.PreselectMode.None,
+        preselect = cmp.PreselectMode.Item,
         snippet = {
           expand = function(args)
             vim.snippet.expand(args.body)
