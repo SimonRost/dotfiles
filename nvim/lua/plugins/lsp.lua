@@ -103,6 +103,17 @@ return {
 
       vim.lsp.enable("jdtls")
 
+      vim.lsp.config("copilot", {
+        capabilities = capabilities,
+        settings = {
+          telemetry = {
+            telemetryLevel = "off",
+          },
+        },
+      })
+
+      vim.lsp.enable("copilot")
+
       local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", {
         clear = true,
       })
@@ -166,6 +177,7 @@ return {
         "yamlls",
         "jdtls",
         "tinymist",
+        "copilot",
       },
       automatic_enable = false,
     },
