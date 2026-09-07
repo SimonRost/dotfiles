@@ -39,3 +39,16 @@ fi
 # Java: use JDK 21 LTS as the default development toolchain.
 export JAVA_HOME="$("/usr/libexec/java_home" -v 21)"
 export PATH="$JAVA_HOME/bin:$PATH"
+
+# Tmux leader c-s
+stty -ixon
+
+# Prompt and interactive command-line enhancements.
+eval "$(starship init zsh)"
+
+# Suggest commands from shell history.
+source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# Highlight valid commands, paths, and shell syntax while typing.
+# This must remain the final line in .zshrc.
+source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
