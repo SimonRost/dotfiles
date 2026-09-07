@@ -31,8 +31,6 @@ vim.api.nvim_set_hl(0, "DiagnosticFloatingError", {
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#F2F2F2", bold = true })
 vim.opt.laststatus = 2  -- Always show statusline
 vim.opt.cmdheight = 1    -- Ensure cmdline is visible
-vim.api.nvim_set_hl(0, "StatusLine", { bg = "#6E738D", fg = "#F2F2F2" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#6E738D", fg = "#6e738d" })
 
 vim.opt.winhighlight = "Normal:Normal,NormalNC:Normal,FloatBorder:FloatBorder"
 vim.cmd([[
@@ -55,6 +53,56 @@ return {
     name = "catppuccin",
     lazy = false,
     priority = 1000,
+  },
+
+  -- Editor status line.
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      options = {
+        theme = "auto",
+        globalstatus = true,
+        component_separators = { left = "│", right = "│" },
+        section_separators = { left = "", right = "" },
+      },
+      sections = {
+        lualine_a = { { "mode", icon = "󰘳" } },
+        lualine_b = {
+          { "branch", icon = "" },
+          "diff",
+        },
+        lualine_c = {
+          {
+            "filename",
+            path = 1,
+            symbols = {
+              modified = "●",
+              readonly = "󰌾",
+              unnamed = "[No Name]",
+            },
+          },
+        },
+        lualine_x = {
+          "diagnostics",
+          {
+            function()
+              local clients = vim.lsp.get_clients({ bufnr = 0 })
+              local names = {}
+
+              for _, client in ipairs(clients) do
+                table.insert(names, client.name)
+              end
+
+              return #names > 0 and table.concat(names, ", ") or ""
+            end,
+            icon = "󰒋",
+          },
+        },
+        lualine_y = { "filetype" },
+        lualine_z = { "location" },
+      },
+    },
   },
 
   -- which-key
