@@ -108,11 +108,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
-vim.keymap.set("n", "<leader>oo", function()
-  vim.cmd.Oil()
-end, { desc = "Open Oil" })
-
-
 -- Dedicated environment for Neovim's optional Python provider.
 do
   local provider_python = vim.fn.expand("~/.venvs/nvim/bin/python3")

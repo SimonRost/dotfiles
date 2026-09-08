@@ -13,48 +13,55 @@ vim.keymap.set("n", "<leader>fvg", function()
   })
 end, { desc = "Grep vault files" })
 
--- Oil keymaps
-vim.keymap.set("n", "<leader>ov", function()
-  vim.cmd.vsplit()
-  vim.cmd.Oil()
-end, { desc = "Open Oil in a vertical split" })
 
 
 return {
-  -- oil
+
+  -- Neo-tree: persistent project file explorer.
   {
-    "stevearc/oil.nvim",
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
     opts = {
-      default_file_explorer = true,
-      columns = { "icon", "permissions", "size" },
-      view_options = {
-        show_hidden = true,
-        is_always_hidden = function(name, _)
-          return name == ".git"
-        end,
+      close_if_last_window = true,
+      popup_border_style = "rounded",
+      enable_git_status = true,
+      enable_diagnostics = true,
+      filesystem = {
+        follow_current_file = {
+          enabled = true,
+        },
+        filtered_items = {
+          visible = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          never_show = { ".git" },
+        },
       },
-      keymaps = {
-        ["g?"] = { "actions.show_help", mode = "n" },
-        ["<CR>"] = "actions.select",
-        ["<C-s>"] = { "actions.select", opts = { vertical = true } },
-        ["<C-h>"] = { "actions.select", opts = { horizontal = true } },
-        ["<C-t>"] = { "actions.select", opts = { tab = true } },
-        ["<C-p>"] = "actions.preview",
-        ["<C-c>"] = { "actions.close", mode = "n" },
-        ["<C-l>"] = "actions.refresh",
-        ["-"] = { "actions.parent", mode = "n" },
-        ["_"] = { "actions.open_cwd", mode = "n" },
-        ["`"] = { "actions.cd", mode = "n" },
-        ["g~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-        ["gs"] = { "actions.change_sort", mode = "n" },
-        ["gx"] = "actions.open_external",
-        ["g."] = { "actions.toggle_hidden", mode = "n" },
-        ["g\\"] = { "actions.toggle_trash", mode = "n" },
+      window = {
+        position = "left",
+        width = 32,
       },
-      dependencies = { "nvim-tree/nvim-web-devicons" },
-      keys = {
-        { "-", "<cmd>Oil<CR>", desc = "Open parent directory (oil)" },
-        { "<leader>oo", "<cmd>Oil<CR>", desc = "File explorer (oil)" },
+    },
+    keys = {
+      {
+        "<leader>e",
+        "<cmd>Neotree toggle filesystem reveal left<CR>",
+        desc = "Explorer: toggle",
+      },
+      {
+        "<leader>o",
+        "<cmd>Neotree focus filesystem left<CR>",
+        desc = "Explorer: focus",
+      },
+      {
+        "-",
+        "<cmd>Neotree reveal<CR>",
+        desc = "Explorer: reveal current file",
       },
     },
   },
