@@ -1,3 +1,25 @@
+-- Telescope keymaps
+vim.keymap.set("n", "<leader>fvf", function()
+  require("telescope.builtin").find_files({
+    cwd = vim.fn.expand("~/Documents/vault"),
+    hidden = true,
+  })
+end, { desc = "Find vault files" })
+
+vim.keymap.set("n", "<leader>fvg", function()
+  require("telescope.builtin").live_grep({
+    cwd = vim.fn.expand("~/Documents/vault"),
+    additional_args = { "--hidden" },
+  })
+end, { desc = "Grep vault files" })
+
+-- Oil keymaps
+vim.keymap.set("n", "<leader>ov", function()
+  vim.cmd.vsplit()
+  vim.cmd.Oil()
+end, { desc = "Open Oil in a vertical split" })
+
+
 return {
   -- oil
   {
@@ -66,6 +88,7 @@ return {
       { "[a",        "<cmd>AerialPrev<CR>",          desc = "Prev symbol" },
     },
   },
+
 
   -- Telescope
   {
